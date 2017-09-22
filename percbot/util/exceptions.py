@@ -1,0 +1,1 @@
+class NotEnoughPercs(Exception): pass
