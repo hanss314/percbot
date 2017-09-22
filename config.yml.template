@@ -1,0 +1,28 @@
+DEFAULT:
+  font: "./resources/arial.ttf"
+  encoding: "UTF-8"
+
+token:
+  Put the bot token here, this is needed
+    
+prefix:
+  '!'
+
+developers:
+  - 240995021208289280
+  
+owners:
+  - 164152700496379904
+  - 240995021208289280
+  - 210285266814894081
+  
+  
+cogs:
+  - percbot.owner
+  - percbot.core
+  - percbot.misc
+  - percbot.users
+  
+
+
+
