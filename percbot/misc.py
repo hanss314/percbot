@@ -162,7 +162,7 @@ class Misc():
         '''About the bot.'''
         d = 'This bot is a currency and shop bot for Nerd\'s Shop TWOW\n'
         d += 'This bot was made by hanss314#0128\n'
-        d += 'You can see and contribute to the source code at <https://github.com/hanss314/percbot>'
+        d += 'You can see and contribute to the source code at <https://github.com/hanss314/percbot>\n'
         d += 'You can join Nerd\'s Shop TWOW here. https://discord.gg/A9DYC8C'
         await ctx.send(d)
 
