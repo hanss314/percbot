@@ -1,3 +1,4 @@
+import sys
 import discord
 
 from discord.ext import commands
@@ -100,22 +101,19 @@ class Core():
     @category('Bot')
     @commands.command()
     async def update(self, ctx):
-        '''Updates an extension'''
-        if len(ctx.message.attachments) < 1: return await ctx.send('You need to attach a file!')
-        def check(m):
-            is_author = m.author == ctx.author
-            is_channel = m.channel == ctx.channel
-            return is_author and is_channel
-        await ctx.send('Are you sure you want to update? Please double check and test your code. [y/N]')
-        response = await ctx.bot.wait_for('message', check=check, timeout=60)
-        
-        if response.content.lower().startswith('y'):
-            attachment = ctx.message.attachments[0]
-            with open('./percbot/{}'.format(attachment.filename), 'wb') as cog:
-                await attachment.save(cog)
-            await ctx.send('Attachment saved as `./percbot/{}`'.format(attachment.filename))
-        else:
-            await ctx.send('Update cancelled.')
+        '''Pulls from git'''
+        async with ctx.channel.typing():
+            if sys.platform == 'win32':
+                process = subprocess.run('git pull', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                stdout, stderr = process.stdout, process.stderr
+            else:
+                process = await asyncio.create_subprocess_exec('git', 'pull', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                stdout, stderr = await process.communicate()
+
+            stdout = stdout.decode()
+            stderr = stderr.decode()
+
+        await ctx.bot.send_message(ctx.channel, '```diff\n{}\n{}```'.format(stdout.replace('```', '`\u200b`\u200b`'), stderr.replace('```', '`\u200b`\u200b`')))
             
 
     @category('Bot')
