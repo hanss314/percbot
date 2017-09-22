@@ -1,4 +1,6 @@
 import sys
+import asyncio
+import subprocess
 import discord
 
 from discord.ext import commands
@@ -110,10 +112,12 @@ class Core():
                 process = await asyncio.create_subprocess_exec('git', 'pull', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 stdout, stderr = await process.communicate()
 
-            stdout = stdout.decode()
-            stderr = stderr.decode()
+            stdout = stdout.decode().splitlines()
+            stdout = '\n'.join('+ ' + i for i in stdout)
+            stderr = stderr.decode().splitlines()
+            stderr = '\n'.join('- ' + i for i in stderr)
 
-        await ctx.bot.send_message(ctx.channel, '```diff\n{}\n{}```'.format(stdout.replace('```', '`\u200b`\u200b`'), stderr.replace('```', '`\u200b`\u200b`')))
+        await ctx.send('```diff\n{}\n{}```'.format(stdout.replace('```', '`\u200b`\u200b`'), stderr.replace('```', '`\u200b`\u200b`')))
             
 
     @category('Bot')
