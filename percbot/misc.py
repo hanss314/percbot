@@ -146,25 +146,7 @@ class Misc():
                         d += '\n`{}{}`'.format(ctx.prefix, alias)
 
                     d += '\n'
-            '''
-            d = '**TWOWBot help:**'
 
-            for i in args:
-                if i in ctx.bot.all_commands:
-                    cmd = ctx.bot.all_commands[i]
-                    d += '\n`{}{}`'.format(ctx.prefix, i)
-
-                    brief = cmd.brief
-                    if brief is None and cmd.help is not None:
-                        brief = cmd.help.split('\n')[0]
-
-                    if brief is None:
-                        brief = 'No description'
-
-                    d += ' - {}'.format(brief)
-                else:
-                    d += '\n`{}{}` - Command not found'.format(ctx.prefix, i.replace('@', '@\u200b').replace('`', '`\u200b'))
-            '''
         d += '\n*Made by hanss314#0128*'
         await ctx.send(d)
 
@@ -173,6 +155,16 @@ class Misc():
     async def ping(self, ctx):
         '''Ping the bot.'''
         await ctx.send('Pong!')
+        
+    @category('info')
+    @commands.command()
+    async def about(self, ctx):
+        '''About the bot.'''
+        d = 'This bot is a currency and shop bot for Nerd\'s Shop TWOW\n'
+        d += 'This bot was made by hanss314#0128\n'
+        d += 'You can see and contribute to the source code at <https://github.com/hanss314/percbot>'
+        d += 'You can join Nerd\'s Shop TWOW here. https://discord.gg/A9DYC8C'
+        await ctx.send(d)
 
     @category('info')
     @commands.command(aliases=['aboutme','boutme','\'boutme'])

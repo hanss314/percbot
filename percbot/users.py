@@ -290,11 +290,5 @@ class Users():
         nerd = ctx.bot.get_user(210285266814894081)
         if nerd is not None: await nerd.send('{} has bought {}'.format(ctx.author.name,item[0].title()))
         
-        
-'''        
-    elif command == 'getsource':
-        print("hi")
-        with open('perc_bot.py','rb') as source:
-'''
 def setup(bot):
     bot.add_cog(Users())
