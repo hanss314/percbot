@@ -80,7 +80,8 @@ class PercBot(commands.Bot):
             
             lines = traceback.format_exception(type(exception), exception, exception.__traceback__)
             self.logger.error(''.join(lines))
-            await self.notify_devs(''.join(lines))
+            await ctx.send('{}, *hanss314* has been notified.'.format(exception.original))
+            await self.notify_devs(''.join(lines), ctx)
         elif isinstance(exception, commands.CheckFailure):
             await ctx.send('You can\'t do that.')
         elif isinstance(exception, commands.CommandNotFound):
@@ -95,15 +96,16 @@ class PercBot(commands.Bot):
         else:
             info = traceback.format_exception(type(exception), exception, exception.__traceback__, chain=False)
             self.logger.error('Unhandled command exception - {}'.format(''.join(info)))
+            await ctx.send('{}, *hanss314* has been notified.'.format(exception))
             await self.notify_devs(''.join(info))
             
     async def on_error(self, event_method, *args, **kwargs):
         info = sys.exc_info()
         info = traceback.format_exception(*info, chain=False)
         self.logger.error('Unhandled exception - {}'.format(''.join(info)))
-        await self.notify_devs(''.join(info))
+        await self.notify_devs(''.join(info), ctx)
     
-    async def notify_devs(self, info):
+    async def notify_devs(self, info, ctx=None):
         with open('error.txt', 'w') as error_file:
             error_file.write(info)
         
@@ -114,7 +116,10 @@ class PercBot(commands.Bot):
                 continue
             try:
                 with open('error.txt', 'r') as error_file:
-                    await dev.send(file=discord.File(error_file))
+                    if ctx is None:
+                        await dev.send(file=discord.File(error_file))
+                    else:
+                        await dev.send('{}: {}'.format(ctx.author, ctx.message.content),file=discord.File(error_file))
             except Exception as e:
                 self.logger.error('Couldn\'t send error embed to developer {0.id}. {1}'
                                 .format(dev, type(e).__name__ + ': ' + str(e)))
