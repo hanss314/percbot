@@ -2,6 +2,7 @@ import sys
 import asyncio
 import subprocess
 import discord
+import inspect
 
 from discord.ext import commands
 
