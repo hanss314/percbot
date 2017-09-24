@@ -103,7 +103,7 @@ class PercBot(commands.Bot):
         info = sys.exc_info()
         info = traceback.format_exception(*info, chain=False)
         self.logger.error('Unhandled exception - {}'.format(''.join(info)))
-        await self.notify_devs(''.join(info), ctx)
+        await self.notify_devs(''.join(info))
     
     async def notify_devs(self, info, ctx=None):
         with open('error.txt', 'w') as error_file:
