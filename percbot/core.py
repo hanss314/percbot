@@ -158,4 +158,8 @@ class Core():
             pass
         
 def setup(bot):
+    @bot.event
+    async def on_ready():
+        game = discord.Game(name='{}help'.format(bot.command_prefix))
+        asyncio.ensure_future(bot.change_presence(game=game))
     bot.add_cog(Core())
