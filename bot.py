@@ -115,7 +115,7 @@ class PercBot(commands.Bot):
                 self.logger.warning('Could not get developer with an ID of {0.id}, skipping.'.format(dev))
                 continue
             try:
-                with open('error.txt', 'r') as error_file:
+                with open('error.txt', 'rb') as error_file:
                     if ctx is None:
                         await dev.send(file=discord.File(error_file))
                     else:
