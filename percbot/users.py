@@ -135,7 +135,7 @@ class Users():
             await ctx.author.send('There are no items you can view.')
     @category('Info')
     @commands.command()
-    async def iteminfo(self, ctx, item: Item):
+    async def iteminfo(self, ctx, *, item: Item):
         '''Get info on an item'''
         tier = item[1]['tier']
         price = item[1]['price']
@@ -233,7 +233,7 @@ class Users():
         
     @category('Shop')
     @commands.command()
-    async def useitem(self, ctx, item: Item): 
+    async def useitem(self, ctx, *, item: Item): 
         '''Use an item'''
         id = ctx.author.id
         try:
@@ -256,7 +256,7 @@ class Users():
        
     @category('Shop')
     @commands.command()
-    async def buy(self, ctx, item: Item): 
+    async def buy(self, ctx, *, item: Item): 
         '''Buy an item'''
         price = item[1]['price']
         tier = item[1]['tier']

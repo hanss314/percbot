@@ -87,7 +87,7 @@ class Owner():
     @commands.command(aliases=['setdescription', 'setdescrip'])
     async def set_description(self, ctx, item: Item, *, descrip: str):
         '''Set the tier for an item'''
-        item[1]['description'] = description
+        item[1]['description'] = descrip
         await ctx.send('Description for {} is {}.'.format(
             item[0].title(), 
             descrip[:1900] + '...' if len(descrip) > 1900 else descrip
@@ -243,6 +243,7 @@ class Owner():
         if ctx.guild.large: await ctx.bot.request_offline_members(shopmtwow)
         for user in role:
             await user.send('Reminder! {}'.format(message))
+
 
 def setup(bot):
     bot.add_cog(Owner())
