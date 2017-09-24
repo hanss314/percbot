@@ -64,28 +64,28 @@ class Owner():
     
     @category('Shop')
     @commands.command(aliases=['setprice'])
-    async def set_price(self, ctx, item: Item, price: int):
+    async def set_price(self, ctx, price: int, *, item: Item):
         '''Set the price for an item'''
         item[1]['price'] = price
         await ctx.send('{} now costs ¶{}.'.format(item[0].title(), price))
         
     @category('Shop')
     @commands.command(aliases=['setstock'])
-    async def set_stock(self, ctx, item: Item, amount: int):
+    async def set_stock(self, ctx, amount: int, *, item: Item):
         '''Set how many items are in stock'''
         item[1]['amount'] = amount
         await ctx.send('Set stock for {} to {}.'.format(item[0].title(), 'Unlimited' if amount<0 else amount))
         
     @category('Shop')
     @commands.command(aliases=['itemtier'])
-    async def item_tier(self, ctx, item: Item, tier: int):
+    async def item_tier(self, ctx, tier: int, *, item: Item):
         '''Set the tier for an item'''
         item[1]['tier'] = tier
         await ctx.send('{} is now at tier {}.'.format(item[0].title(), tier))
         
     @category('Shop')
     @commands.command(aliases=['setdescription', 'setdescrip'])
-    async def set_description(self, ctx, item: Item,*, descrip: str):
+    async def set_description(self, ctx, item: Item, *, descrip: str):
         '''Set the tier for an item'''
         item[1]['description'] = description
         await ctx.send('Description for {} is {}.'.format(
@@ -114,21 +114,21 @@ class Owner():
 
     @category('Shop')
     @commands.command()
-    async def nexttier(self, ctx, item: Item, tier: int):   
+    async def nexttier(self, ctx, tier: int, *, item: Item):   
         '''For items that tier you up after buying'''
         item[1]['nexttier'] = tier
         await ctx.send('Anyone who buys {} will be set to at least tier {}.'.format(item[0].title(), tier))
 
     @category('Shop')
     @commands.command()
-    async def maxtier(self, ctx, item: Item, tier: int):
+    async def maxtier(self, ctx, tier: int, *, item: Item):
         '''Sets a maximum tier to buy an item'''
         item[1]['maxtier']=tier
         await ctx.send('The highest tier to buy {} will be {}.'.format(item[0].title(), tier))
         
     @category('Shop')
     @commands.command(aliases=['minrev'])
-    async def setminrev(self, ctx, item: Item, revenue: int):
+    async def setminrev(self, ctx, revenue: int, *, item: Item):
         '''Sets the revenue required to buy an item'''
         item[1]['minrev']=revenue
         await ctx.send('People will need ¶{} to buy {}.'.format(revenue, item[0].title()))
