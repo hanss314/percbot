@@ -94,23 +94,41 @@ class Owner():
             ))
     
     @category('Shop')
-    @commands.command()
-    async def alias(self, ctx, item: Item, action, *aliases: to_lower):
-        '''Add an alias for an item'''
-        if action not in ['add', 'remove', '+', '-', 'list']:
-            return await ctx.send('Action must be <add|remove|+|-|list>')
+    @commands.group(invoke_without_command=True)
+    async def alias(self, ctx):
+        '''View and edit aliases for items'''
+        await ctx.send('Valid subcommands: {}'.format(
+            say_list([c.name for c in ctx.command.commands], default='none', before='`', after='`')))
         
-        aliases=set(aliases)
-
-        if 'aliases' not in item[1]:
+    @alias.command(name='list')
+    async def alias_list(self, ctx, item: Item):
+        '''List all aliases for an item'''
+        if 'aliases' not in item[1]: item[1]['aliases'] = set()
+        await ctx.send('Aliases for {}: {}'.format(item[0].title(), 
+                say_list(list(item[1]['aliases']), default='none', before='`', after='`')
+            ))
+        
+    @alias.command(name='add',aliases=['+'])
+    async def alias_add(self, ctx, item: Item, *aliases: to_lower):
+        '''Add aliases for an item'''
+        try:
+            if not isinstance(item[1]['aliases'], set):
+                item[1]['aliases'] = set(item[1]['aliases'])
+        except KeyError:
             item[1]['aliases'] = set()
-            
-        if action in['add','+']:
-            item[1]['aliases'] |= aliases
-        elif action in ['remove','-']:
-            item[1]['aliases'] -= aliases
-            
-        await ctx.send('Aliases for {}: `{}`'.format(item[0].title(), ', '.join(item[1]['aliases']) or ' '))
+        item[1]['aliases'] |= set(aliases)
+        await ctx.send('Added aliases {} for {}'.format(say_list(aliases, default='nothing', before='`',after='`'), item[0]))
+        
+    @alias.command(name='remove',aliases=['-'])
+    async def alias_remove(self, ctx, item: Item, *aliases: to_lower):
+        '''Remove aliases from an item'''
+        try:
+            if not isinstance(item[1]['aliases'], set):
+                item[1]['aliases'] = set(item[1]['aliases'])
+        except KeyError:
+            item[1]['aliases'] = set()
+        item[1]['aliases'] -= set(aliases)
+        await ctx.send('Removed aliases {} for {}'.format(say_list(aliases, default='nothing', before='`',after='`'), item[0]))
 
     @category('Shop')
     @commands.command()

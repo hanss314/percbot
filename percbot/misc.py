@@ -68,14 +68,14 @@ class Misc():
                     else:
                         d += '`{}{} '.format(ctx.prefix, cmd.name)
                         if cmd.invoke_without_command:
-                            d += '['
-                        else:
                             d += '<'
+                        else:
+                            d += '['
                         d += '|'.join(cmd.all_commands.keys())
                         if cmd.invoke_without_command:
-                            d += ']`\n'
-                        else:
                             d += '>`\n'
+                        else:
+                            d += ']`\n'
                     
                     d += '\n**Description:**\n'
                     d += '{}\n'.format('None' if cmd.help is None else cmd.help.strip())
@@ -89,7 +89,7 @@ class Misc():
                     if cmd.aliases:
                         d += '\n**Aliases:**'
                         for alias in cmd.aliases:
-                            d += '\n`{}{}`'.format(ctx.prefix, alias)
+                            d += '\n`{}`'.format(alias)
 
                         d += '\n'
         else:
@@ -116,21 +116,21 @@ class Misc():
                     p_str = ''
                     for p in params:
                         if p[1].default == p[1].empty:
-                            p_str += ' [{}]'.format(p[0])
+                            p_str += '<{}> '.format(p[0])
                         else:
-                            p_str += ' <{}>'.format(p[0])
+                            p_str += '[{}] '.format(p[0])
                     d += '`{}{}{}`\n'.format(ctx.prefix, cmd_name, p_str)
                 else:
                     d += '`{}{} '.format(ctx.prefix, cmd.name)
                     if cmd.invoke_without_command:
-                        d += '['
-                    else:
                         d += '<'
+                    else:
+                        d += '['
                     d += '|'.join(cmd.all_commands.keys())
                     if cmd.invoke_without_command:
-                        d += ']`\n'
-                    else:
                         d += '>`\n'
+                    else:
+                        d += ']`\n'
 
                 d += '\n**Description:**\n'
                 d += '{}\n'.format('None' if cmd.help is None else cmd.help.strip())
@@ -144,7 +144,7 @@ class Misc():
                 if cmd.aliases:
                     d += '\n**Aliases:**'
                     for alias in cmd.aliases:
-                        d += '\n`{}{}`'.format(ctx.prefix, alias)
+                        d += '\n`{}`'.format(alias)
 
                     d += '\n'
 
