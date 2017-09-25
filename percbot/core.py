@@ -91,6 +91,8 @@ class Core():
     @reload.command(name='all')
     async def reload_all(self, ctx):
         '''Reloads all extensions'''
+        import importlib
+        importlib.reload(sys.modules['percbot.util'])
         for extension in ctx.bot.extensions.copy():
             ctx.bot.unload_extension(extension)
             try:
