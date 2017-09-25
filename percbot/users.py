@@ -250,9 +250,9 @@ class Users():
             return await ctx.author.send('You don\'t have any {}. Use `{}myitems` to see your items.'.format(
                 item[0].title(),ctx.prefix))
 
-        await ctx.send('You have used {}. Nerd has been alerted'.format(item[0]))
+        await ctx.send('You have used {}. Nerd has been alerted'.format(item[0].title()))
         nerd = ctx.bot.get_user(210285266814894081)
-        if nerd is not None: await nerd.send('{} has used {}'.format(ctx.author.name,item[0]))
+        if nerd is not None: await nerd.send('{} has used {}'.format(ctx.author.name, item[0].title()))
        
     @category('Shop')
     @commands.command()
