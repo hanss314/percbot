@@ -118,7 +118,7 @@ class Users():
                 stock = value['amount']
                 if stock <0:
                     stock='Unlimited'
-                item_str='*{}*: ¶{}. {} in stock.\n'.format(key,value['price'],stock)
+                item_str='*{}*: ¶{}. {} in stock.\n'.format(key.title(),value['price'],stock)
                 try: 
                     item_tiers[value['tier']].append(item_str)
                 except KeyError:
@@ -177,7 +177,7 @@ class Users():
                 stock = value['amount']
                 if stock <0:
                     stock='Unlimited'
-                item_str='*{}*: ¶{}. {} in stock.\n'.format(key,value['price'],stock)
+                item_str='*{}*: ¶{}. {} in stock.\n'.format(key.title(),value['price'],stock)
                 try: 
                     item_tiers[value['tier']].append(item_str)
                 except KeyError:
