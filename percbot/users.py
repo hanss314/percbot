@@ -146,11 +146,13 @@ class Users():
             stock='Unlimited'
         description = item[1]['description']
         d = '**{}**\n'.format(item[0].title())
-        if len(aliases) >0:
-            d += 'Aliases: {}\n'.format(', '.join(aliases))
+        if len(aliases) >0: d += 'Aliases: {}\n'.format(', '.join(['*{}*'.format(a) for a in aliases]))
         d += 'Price: ¶{}\n'.format(price)
         d += 'Stock: {}\n'.format(stock)
-        d += 'Tier: {}\n\n'.format(tier)
+        d += 'Tier: {}\n'.format(tier)
+        if 'maxtier' in item[1]: d += 'Maximum Tier: {}'.format(item[1]['maxtier'])
+        if 'minrev' in item[1]: d += 'Minimum Revenue: {}'.format(item[1]['minrev'])
+        d += '\n'
         d += description
         await ctx.author.send(d)
     
