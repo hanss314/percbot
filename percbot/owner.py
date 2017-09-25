@@ -100,7 +100,7 @@ class Owner():
             say_list([c.name for c in ctx.command.commands], default='none', before='`', after='`')))
         
     @alias.command(name='list')
-    async def alias_list(self, ctx, item: Item):
+    async def alias_list(self, ctx, *, item: Item):
         '''List all aliases for an item'''
         if 'aliases' not in item[1]: item[1]['aliases'] = set()
         await ctx.send('Aliases for {}: {}'.format(item[0].title(), 
