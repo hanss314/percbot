@@ -150,8 +150,8 @@ class Users():
         d += 'Price: ¶{}\n'.format(price)
         d += 'Stock: {}\n'.format(stock)
         d += 'Tier: {}\n'.format(tier)
-        if 'maxtier' in item[1]: d += 'Maximum Tier: {}'.format(item[1]['maxtier'])
-        if 'minrev' in item[1]: d += 'Minimum Revenue: {}'.format(item[1]['minrev'])
+        if 'maxtier' in item[1]: d += 'Maximum Tier: {}\n'.format(item[1]['maxtier'])
+        if 'minrev' in item[1]: d += 'Minimum Revenue: {}\n'.format(item[1]['minrev'])
         d += '\n'
         d += description
         await ctx.author.send(d)
