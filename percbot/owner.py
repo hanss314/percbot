@@ -28,8 +28,7 @@ class Owner():
                 if -1*amount > db.people[member.id]['percs']:
                     not_enough.append(member.name)
                 else:
-                    db.people[member.id]['percs'] += amount
-                    db.people[member.id]['transacts'].append(amount)
+                    ctx.bot.transac(member.id, amount)
                     success.append(member.name)
         
         if ctx.message.mention_everyone: name_str = 'Everyone'
@@ -261,7 +260,6 @@ class Owner():
         if ctx.guild.large: await ctx.bot.request_offline_members(shopmtwow)
         for user in role:
             await user.send('Reminder! {}'.format(message))
-
 
 def setup(bot):
     bot.add_cog(Owner())

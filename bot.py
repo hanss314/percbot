@@ -52,6 +52,10 @@ class PercBot(commands.Bot):
         }
         self.inventories[user.id] = {item:0 for item in self.items.keys()}
         
+    def transac(self, user, amount):
+        self.people[user]['percs'] += amount
+        self.people[user]['transacts'].append(amount)
+        
     def save_data(self):
         with open('bot_data/items.yml', 'w') as data_file:
             self.yaml.dump(self.items, data_file)
@@ -77,6 +81,8 @@ class PercBot(commands.Bot):
                 try: await ctx.send('Permissions error: `{}`'.format(exception))
                 except discord.Forbidden: pass
                 return
+            elif isinstance(exception.original, yaml.parser.ParserError):
+                return await ctx.send('Ya borked the database.')
             
             lines = traceback.format_exception(type(exception), exception, exception.__traceback__)
             self.logger.error(''.join(lines))

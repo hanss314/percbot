@@ -283,7 +283,7 @@ class Users():
                 return await ctx.send('You need more revenue!')
 
         ctx.bot.inventories[ctx.author.id][item[0]] += 1
-        ctx.bot.people[ctx.author.id]['percs'] -= item[1]['price']
+        ctx.bot.transac(ctx.author.id, -1*item[1]['price'])
         item[1]['amount'] -= 1
         
         await ctx.send('You have bought {}. Nerd has been alerted'.format(item[0].title()))
