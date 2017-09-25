@@ -281,8 +281,10 @@ class Users():
             rev = sum([x for x in ctx.bot.people[ctx.author.id]['transacts'] if x>0])
             if item[1]['minrev'] > rev:
                 return await ctx.send('You need more revenue!')
-
-        ctx.bot.inventories[ctx.author.id][item[0]] += 1
+        try:
+            ctx.bot.inventories[ctx.author.id][item[0]] += 1
+        except KeyError:
+            ctx.bot.inventories[ctx.author.id][item[0]] = 1
         ctx.bot.transac(ctx.author.id, -1*item[1]['price'])
         item[1]['amount'] -= 1
         
