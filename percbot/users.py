@@ -167,7 +167,7 @@ class Users():
             ctx.bot.add_user(ctx.author.id)
         
         for key, value in ctx.bot.items.items():
-            b = value['tier'] <= tier and value['amount'] > 0
+            b = value['tier'] <= tier and value['amount'] != 0
             b = b and value['price'] <= ctx.bot.people[ctx.author.id]['percs']
             if 'maxtier' in value: b = b and tier <= value['maxtier']
             if 'minrev' in value: 
