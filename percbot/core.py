@@ -109,9 +109,11 @@ class Core():
         '''Pulls from git'''
         async with ctx.channel.typing():
             if sys.platform == 'win32':
+                subprocess.run('git stash', shell=True)
                 process = subprocess.run('git pull', shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 stdout, stderr = process.stdout, process.stderr
             else:
+                await asyncio.create_subprocess_exec('git', 'stash')
                 process = await asyncio.create_subprocess_exec('git', 'pull', stdout=subprocess.PIPE, stderr=subprocess.PIPE)
                 stdout, stderr = await process.communicate()
 
