@@ -152,6 +152,7 @@ class Users():
         d += 'Tier: {}\n'.format(tier)
         if 'maxtier' in item[1]: d += 'Maximum Tier: {}\n'.format(item[1]['maxtier'])
         if 'minrev' in item[1]: d += 'Minimum Revenue: {}\n'.format(item[1]['minrev'])
+        if 'nexttier' in item[1]: d += 'Next Tier: {}\n'.format(item[1]['nexttier'])
         d += '\n'
         d += description
         await ctx.author.send(d)
@@ -289,6 +290,8 @@ class Users():
             ctx.bot.inventories[ctx.author.id][item[0]] = 1
         ctx.bot.transac(ctx.author.id, -1*item[1]['price'])
         item[1]['amount'] -= 1
+        if 'nexttier' in item[1] and item[1]['nexttier'] > ctx.bot.people[ctx.author.id]['tier']:
+            ctx.bot.people[ctx.author.id]['tier'] = item[1]['nexttier']
         
         await ctx.send('You have bought {}. Nerd has been alerted'.format(item[0].title()))
         nerd = ctx.bot.get_user(210285266814894081)
