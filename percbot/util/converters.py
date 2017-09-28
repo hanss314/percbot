@@ -9,6 +9,7 @@ class UserList(commands.Converter):
                 try: role = await commands.RoleConverter().convert(ctx, argument)
                 except commands.BadArgument: pass
                 else:
+                    await ctx.send(role)
                     if role.guild.large: await role.bot.request_offline_member(ctx.guild)
                     for member in role.guild.members:
                         if role in member.roles:
@@ -19,7 +20,7 @@ class UserList(commands.Converter):
             try: user = await commands.UserConverter().convert(ctx, argument)
             except commands.BadArgument: pass
             else: ids.add(user)
-        print(ids)
+        await ctx.send(ids)
         if len(ids) == 0:
             raise commands.BadArgument('{} is not a role or user.'.format(argument))
         
