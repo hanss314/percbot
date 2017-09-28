@@ -25,6 +25,8 @@ class UserList(commands.Converter):
             return ids
         except Exception as e:
             await ctx.send(str(e))
+        finally: 
+            await ctx.send('Idk')
 
 class Item(commands.Converter):
     async def convert(self, ctx, argument):
