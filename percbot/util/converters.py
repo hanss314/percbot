@@ -2,8 +2,8 @@ from discord.ext import commands
 
 class UserList(commands.Converter):
     async def convert(self, ctx, argument):
-        ids = set()
         try:
+            ids = set()
             if ctx.guild is not None:
                 try: member = await commands.MemberConverter().convert(ctx, argument)
                 except commands.BadArgument:
@@ -22,10 +22,9 @@ class UserList(commands.Converter):
                 else: ids.add(user)
             if len(ids) == 0:
                 raise commands.BadArgument('{} is not a role or user.'.format(argument))
+            return ids
         except Exception as e:
             await ctx.author.send(traceback.format_exception(type(e), e, e.__traceback__, chain=True))
-        
-        return ids
 
 class Item(commands.Converter):
     async def convert(self, ctx, argument):
