@@ -2,7 +2,6 @@ from discord.ext import commands
 
 class UserList(commands.Converter):
     async def convert(self, ctx, argument):
-        await ctx.send('If you see this it means it reloaded correctly!')
         ids = set()
         if ctx.guild is not None:
             try: member = await commands.MemberConverter().convert(ctx, argument)
@@ -10,8 +9,7 @@ class UserList(commands.Converter):
                 try: role = await commands.RoleConverter().convert(ctx, argument)
                 except commands.BadArgument as e: raise e
                 else:
-                    await ctx.send(str(role))
-                    if role.guild.large: await role.bot.request_offline_member(ctx.guild)
+                    if role.guild.large: await role.bot.request_offline_members(ctx.guild)
                     for member in role.guild.members:
                         if role in member.roles:
                             ids.add(member)
