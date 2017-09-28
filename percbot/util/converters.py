@@ -9,7 +9,7 @@ class UserList(commands.Converter):
                 try: role = await commands.RoleConverter().convert(ctx, argument)
                 except commands.BadArgument as e: raise e
                 else:
-                    if role.guild.large: await role.bot.request_offline_members(ctx.guild)
+                    if role.guild.large: await ctx.bot.request_offline_members(ctx.guild)
                     for member in role.guild.members:
                         if role in member.roles:
                             ids.add(member)
