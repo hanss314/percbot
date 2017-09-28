@@ -2,6 +2,7 @@ from discord.ext import commands
 
 class UserList(commands.Converter):
     async def convert(self, ctx, argument):
+        await ctx.send('If you see this it means it reloaded correctly!')
         ids = set()
         if ctx.guild is not None:
             try: member = await commands.MemberConverter().convert(ctx, argument)
