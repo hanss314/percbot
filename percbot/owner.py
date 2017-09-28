@@ -257,9 +257,7 @@ class Owner():
     @commands.command()
     async def remind(self, ctx, role: UserList, *, message: str):
         '''Send a DM reminder to a role, user, or whatever'''
-        if ctx.guild.large: await ctx.bot.request_offline_members(shopmtwow)
-        for user in role:
-            await user.send('Reminder! {}'.format(message))
+        for user in role: await user.send('Reminder! {}'.format(message))
 
 def setup(bot):
     bot.add_cog(Owner())
