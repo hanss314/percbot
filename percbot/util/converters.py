@@ -24,7 +24,7 @@ class UserList(commands.Converter):
                 raise commands.BadArgument('{} is not a role or user.'.format(argument))
             return ids
         except Exception as e:
-            await ctx.send(' '.join(traceback.format_exception(type(e), e, e.__traceback__, chain=False)))
+            await ctx.send(str(e))
 
 class Item(commands.Converter):
     async def convert(self, ctx, argument):
