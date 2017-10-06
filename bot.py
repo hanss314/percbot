@@ -1,20 +1,18 @@
 import traceback
-import datetime
 import logging
 import sys
 import re
 import os
-import base64
 
 from discord.ext import commands
-from discord.ext.commands.errors import CommandError, CommandNotFound
-import ruamel.yaml as yaml
+from ruamel import yaml
 import discord
+
 
 class PercBot(commands.Bot):
     class ErrorAlreadyShown(Exception): pass
 
-    def __init__(self, log_file=None, *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         self.config = {}
         self.board = None
         self.yaml = yaml.YAML(typ='safe')
@@ -43,14 +41,14 @@ class PercBot(commands.Bot):
             **kwargs
         )
         
-    def add_user(self, id):
+    def add_user(self, user):
         self.people[user.id] = {
-            'name':user.name,
-            'tier':0,
-            'percs':0,
-            'transacts':[]
+            'name': user.name,
+            'tier': 0,
+            'percs': 0,
+            'transacts': []
         }
-        self.inventories[user.id] = {item:0 for item in self.items.keys()}
+        self.inventories[user.id] = {item: 0 for item in self.items.keys()}
         
     def transac(self, user, amount):
         self.people[user]['percs'] += amount
@@ -125,10 +123,10 @@ class PercBot(commands.Bot):
                     if ctx is None:
                         await dev.send(file=discord.File(error_file))
                     else:
-                        await dev.send('{}: {}'.format(ctx.author, ctx.message.content),file=discord.File(error_file))
+                        await dev.send('{}: {}'.format(ctx.author, ctx.message.content), file=discord.File(error_file))
             except Exception as e:
                 self.logger.error('Couldn\'t send error embed to developer {0.id}. {1}'
-                                .format(dev, type(e).__name__ + ': ' + str(e)))
+                    .format(dev, type(e).__name__ + ': ' + str(e)))
             
         os.remove('error.txt')
 
@@ -148,10 +146,11 @@ class PercBot(commands.Bot):
         for cog in cogs:
             try:
                 self.load_extension(cog)
-            except Exception as e:
+            except:
                 self.logger.exception('Failed to load cog {}.'.format(cog))
             else:
                 self.logger.info('Loaded cog {}.'.format(cog))
+
         async def coro(ctx): ctx.bot.save_data()
         self.after_invoke(coro)
         self.logger.info('Loaded {} cogs'.format(len(self.cogs)))

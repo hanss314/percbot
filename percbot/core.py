@@ -139,7 +139,6 @@ class Core():
                 'author': ctx.author,
                 'bot': ctx.bot,
                 'message': ctx.message,
-                'channel': ctx.channel,
                 'inventories': ctx.bot.inventories,
                 'items': ctx.bot.items,
                 'people': ctx.bot.people,

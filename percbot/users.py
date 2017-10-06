@@ -23,7 +23,7 @@ class Users():
         
         if user.id not in ctx.bot.people:
             if id == ctx.author.id:
-                ctx.bot.add_user(user.id)
+                ctx.bot.add_user(user)
                 await ctx.author.send('You have 0 percs.')
             else:
                 await ctx.author.send('{} is not in the database.'.format(user.name))
@@ -54,7 +54,7 @@ class Users():
         
         if user.id not in ctx.bot.people:
             if user.id == ctx.author.id:
-                ctx.bot.add_user(user.id)
+                ctx.bot.add_user(user)
                 await ctx.author.send('You are at tier 0.')
             else:
                 await ctx.author.send('{} is not in the database.'.format(user.name))
@@ -83,7 +83,7 @@ class Users():
             user = ctx.author
         
         if user.id not in ctx.bot.people:
-            if id == ctx.author.id: ctx.bot.add_user(user.id)
+            if id == ctx.author.id: ctx.bot.add_user(user)
             else: await ctx.author.send('{} is not in the database.'.format(id))
         
         hist = ctx.bot.people[user.id]['transacts']
@@ -111,7 +111,7 @@ class Users():
             tier = ctx.bot.people[ctx.author.id]['tier']
         except KeyError:
             tier = 0
-            ctx.bot.add_user(ctx.author.id)
+            ctx.bot.add_user(ctx.author)
         
         for key, value in ctx.bot.items.items():
             if value['tier'] <= tier:
@@ -167,7 +167,7 @@ class Users():
             tier = ctx.bot.people[ctx.author.id]['tier']
         except KeyError:
             tier = 0
-            ctx.bot.add_user(ctx.author.id)
+            ctx.bot.add_user(ctx.author)
         
         for key, value in ctx.bot.items.items():
             b = value['tier'] <= tier and value['amount'] != 0
@@ -210,7 +210,7 @@ class Users():
         
         if user.id not in ctx.bot.people:
             if id == ctx.author.id:
-                ctx.bot.add_user(user.id)
+                ctx.bot.add_user(user)
                 await ctx.author.send('You have no items.')
             else:
                 await ctx.author.send('{} is not in the database.'.format(user.name))
@@ -238,15 +238,14 @@ class Users():
     @commands.command()
     async def useitem(self, ctx, *, item: Item): 
         '''Use an item'''
-        id = ctx.author.id
+
         try:
-            item_dict = ctx.bot.inventories[id]
+            item_dict = ctx.bot.inventories[ctx.author.id]
         except KeyError:
-            ctx.bot.add_user(ctx.author.id)
+            ctx.bot.add_user(ctx.author)
             await ctx.user.send('You have no items.')
             return
 
-        item_dict = ctx.bot.inventories[ctx.author.id]
         if item_dict[item[0]] > 0:
             item_dict[item[0]] -=1
         else:
@@ -265,7 +264,7 @@ class Users():
         tier = item[1]['tier']
         
         if ctx.author.id not in ctx.bot.people:
-            ctx.bot.add_user(ctx.author.id)
+            ctx.bot.add_user(ctx.author)
             return await ctx.send('You have no money.')
         
         if ctx.bot.people[ctx.author.id]['tier'] < tier:

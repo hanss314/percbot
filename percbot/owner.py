@@ -8,6 +8,7 @@ from percbot.util.categories import category
 from percbot.util.converters import UserList, Item
 from percbot.util.formatters import say_list, to_lower
 
+
 class Owner():
     
     async def __local_check(self, ctx):
@@ -46,14 +47,13 @@ class Owner():
     @commands.command(aliases=['additem'])
     async def add_item(self, ctx, name: to_lower, price: int, amount: int, tier: int, *, description:str):
         '''Create an item'''
-        success = False
         db = ctx.bot
         if name in db.items: return await ctx.send('{} is already an item!'.format(name.title()))
-        db.items[name]={
-            'price':price,
-            'amount':amount,
-            'tier':tier,
-            'description':description
+        db.items[name] = {
+            'price': price,
+            'amount': amount,
+            'tier': tier,
+            'description': description
             }
         for user in db.inventories.values():
             user[name] = 0
@@ -257,7 +257,14 @@ class Owner():
     @commands.command()
     async def remind(self, ctx, role: UserList, *, message: str):
         '''Send a DM reminder to a role, user, or whatever'''
-        for user in role: await user.send('Reminder! {}'.format(message))
+        failed = []
+        for user in role:
+            try: await user.send('Reminder! {}'.format(message))
+            except: failed.append(user.name)
+
+        d = 'Reminder sent!'
+        if failed: d += ' DM failed for {}.'.format(say_list(failed))
+        await ctx.send(d, delete_after=10)
 
 def setup(bot):
     bot.add_cog(Owner())
