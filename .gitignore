@@ -120,4 +120,5 @@ twows/
 utils/
 voteCounter.py
 wordCounter.py
+.idea/
 
