@@ -199,7 +199,7 @@ class Users():
     @category('Info')
     @commands.command()
     async def myitems(self, ctx, user: discord.User = None):
-        '''See how many percs you have'''
+        '''See your items'''
         tried_other=False
         if user is not None:
             if not checks.is_owner(ctx):
