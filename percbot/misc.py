@@ -168,4 +168,4 @@ class Misc():
             pass
 
 def setup(bot):
-    bot.add_cog(Misc())
+    bot.add_cog(Misc(bot))
