@@ -6,8 +6,6 @@ from percbot.util.categories import category
 
 
 class Misc():
-    def __init__(self, bot):
-        self.bot = bot
 
     def format_args(self, cmd):
         params = list(cmd.clean_params.items())
@@ -63,7 +61,7 @@ class Misc():
     async def help(self, ctx, *args):
         '''This help message'''
         if len(args) == 0:
-            cats = [cog for cog in self.bot.cogs]
+            cats = [cog for cog in ctx.bot.cogs]
             cats.sort()
             width = max([len(cat) for cat in cats]) + 2
             d = '**Categories:**\n'
@@ -76,11 +74,11 @@ class Misc():
             d += 'Use `{0}help <command>` to get in depth help for a command.\n'.format(ctx.prefix)
 
         elif len(args) == 1:
-            cats = {cog.lower():cog for cog in self.bot.cogs}
+            cats = {cog.lower():cog for cog in ctx.bot.cogs}
             if args[0].lower() in cats:
                 cog_name = cats[args[0].lower()]
                 d = 'Commands in category **`{}`**:\n'.format(cog_name)
-                cmds = self.bot.get_cog_commands(cog_name)
+                cmds = ctx.bot.get_cog_commands(cog_name)
                 for cmd in sorted(list(cmds), key=lambda x:x.name):
                     d += '\n  `{}{}`'.format(ctx.prefix, cmd.name)
 
@@ -168,4 +166,4 @@ class Misc():
             pass
 
 def setup(bot):
-    bot.add_cog(Misc(bot))
+    bot.add_cog(Misc())
