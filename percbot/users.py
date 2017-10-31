@@ -1,13 +1,26 @@
 import discord
+import re
 
 from discord.ext import commands
 
 from percbot.util import checks
 from percbot.util.categories import category
-from percbot.util.converters import UserList, Item
-from percbot.util.formatters import say_list, to_lower
+from percbot.util.converters import  Item
 
 class Users():
+
+    @category('Halloween')
+    @commands.command(aliases=['trickortreat', 'trick or treat'])
+    async def trick_or_treat(self, ctx):
+        if 'candy corn' not in ctx.bot.items or ctx.bot.items['candy corn']['amount'] == 0:
+            return await ctx.send("Oops, I'm all out of candy")
+
+        try:
+            ctx.bot.inventories[ctx.author.id]['candy corn'] += 1
+        except KeyError:
+            ctx.bot.inventories[ctx.author.id]['candy corn'] = 1
+
+        await ctx.send('Here, have some candy corn. :candy::corn:')
     
     @category('Info')
     @commands.command()

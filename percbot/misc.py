@@ -5,7 +5,7 @@ import discord
 from percbot.util.categories import category
 
 
-class Misc():
+class Misc:
 
     def format_args(self, cmd):
         params = list(cmd.clean_params.items())
