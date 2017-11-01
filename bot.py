@@ -105,6 +105,14 @@ class PercBot(commands.Bot):
             
     async def on_error(self, event_method, *args, **kwargs):
         info = sys.exc_info()
+        if info[0] == PermissionError:
+            self.logger.warning(
+                'PermissionError: ' +
+                'Unable to save results of the previous command. ' +
+                'Data may be lost.'
+            )
+            return
+
         info = traceback.format_exception(*info, chain=False)
         self.logger.error('Unhandled exception - {}'.format(''.join(info)))
         await self.notify_devs(''.join(info))
