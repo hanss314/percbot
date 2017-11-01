@@ -60,9 +60,17 @@ class Misc:
     @commands.command()
     async def help(self, ctx, *args):
         '''This help message'''
+        cmds = {i for i in ctx.bot.all_commands.values()}
         if len(args) == 0:
-            cats = [cog for cog in ctx.bot.cogs]
-            cats.sort()
+            cats = {}
+            for cmd in cmds:
+                if not hasattr(cmd, 'category'):
+                    cmd.category = 'Misc'
+                if cmd.category not in cats:
+                    cats[cmd.category] = []
+                cats[cmd.category].append(cmd)
+
+            cats = sorted(list(cats.keys()))
             width = max([len(cat) for cat in cats]) + 2
             d = '**Categories:**\n'
             for cat in zip(cats[0::2], cats[1::2]):
@@ -74,12 +82,17 @@ class Misc:
             d += 'Use `{0}help <command>` to get in depth help for a command.\n'.format(ctx.prefix)
 
         elif len(args) == 1:
-            cats = {cog.lower():cog for cog in ctx.bot.cogs}
-            if args[0].lower() in cats:
-                cog_name = cats[args[0].lower()]
-                d = 'Commands in category **`{}`**:\n'.format(cog_name)
-                cmds = ctx.bot.get_cog_commands(cog_name)
-                for cmd in sorted(list(cmds), key=lambda x:x.name):
+            cats = {}
+            for cmd in cmds:
+                if not hasattr(cmd, 'category'):
+                    cmd.category = 'Misc'
+                if cmd.category not in cats:
+                    cats[cmd.category] = []
+                cats[cmd.category].append(cmd)
+
+            if args[0].title() in cats:
+                d = 'Commands in category **`{}`**:\n'.format(args[0].title())
+                for cmd in sorted(cats[args[0].title()], key=lambda x:x.name):
                     d += '\n  `{}{}`'.format(ctx.prefix, cmd.name)
 
                     brief = cmd.brief
