@@ -202,7 +202,12 @@ class Owner():
         '''Give an item to a user. Ignore stock and tiers.'''
         if user.id not in ctx.bot.inventories:
             ctx.bot.inventories[user.id] = {i:0 for i in ctx.bot.items.keys()}
-        ctx.bot.inventories[user.id][item[0]] += 1
+
+        try:
+            ctx.bot.inventories[user.id][item[0]] += 1
+        except KeyError:
+            ctx.bot.inventories[user.id][item[0]] = 1
+
         await ctx.send('Gave one {} to {}.'.format(item[0].title(), user.name))
             
     @category('People')
