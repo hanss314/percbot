@@ -12,7 +12,7 @@ I'll just display the text like normal. For your sorry ass' information
 
 eggs = {
     '.*(can.*|!)(buy|have|give|get).*start communist revolution': tired,
-    '.*discord.gg/[A-z]*': 't!t FYM'
+    '.*discord.gg/[A-z]*': '​https://cdn.discordapp.com/attachments/305858977084997633/349432613553045504/unknown.png'
 }
 
 
