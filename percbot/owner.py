@@ -198,7 +198,7 @@ class Owner():
     
     @category('People')
     @commands.command()
-    async def give(self, ctx, user: discord.User, item: Item):
+    async def give(self, ctx, user: discord.User, *, item: Item):
         '''Give an item to a user. Ignore stock and tiers.'''
         if user.id not in ctx.bot.inventories:
             ctx.bot.inventories[user.id] = {i:0 for i in ctx.bot.items.keys()}
@@ -212,7 +212,7 @@ class Owner():
             
     @category('People')
     @commands.command()
-    async def take(self, ctx, user: discord.User, item: Item):
+    async def take(self, ctx, user: discord.User, *, item: Item):
         '''Take an item from a user.'''
         if user.id not in ctx.bot.inventories:
             ctx.bot.inventories[user.id] = {i:0 for i in ctx.bot.items.keys()}
