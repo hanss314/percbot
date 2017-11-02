@@ -11,7 +11,7 @@ I'll just display the text like normal. For your sorry ass' information
 """.replace('\n', '')
 
 eggs = {
-    '(can.*|!)(buy|have|give|get).*start communist revolution': tired
+    '.*(can.*|!)(buy|have|give|get).*start communist revolution': tired
 }
 
 
