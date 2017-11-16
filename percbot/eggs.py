@@ -1,4 +1,7 @@
 import re
+import discord
+
+from discord.ext import commands
 
 tired = """Okay, I\'m real tired of this shit {message.author.name}. This isn't funny. 
 Go do something with your life. You're an asshole for constantly doing this. 
@@ -41,6 +44,23 @@ class Eggs:
         await ctx.send(give_mess)
 
     '''
+
+    @commands.command()
+    async def individualistically(self, ctx):
+        print(type(ctx.channel))
+        if isinstance(ctx.channel, discord.DMChannel):
+            gid= 305508311892099072
+            rid = 380545705913090048
+            guild = ctx.bot.get_guild(gid)
+            if not guild: return
+            member = guild.get_member(ctx.author.id)
+            role = discord.utils.find(lambda r: r.id == rid, guild.roles)
+            print(member)
+            print(role)
+            if not (member and role): return
+            await member.add_roles(role)
+            await ctx.send(':japan:')
+
 
     async def on_message(self, message):
         content = message.content.lower()

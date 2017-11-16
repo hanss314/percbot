@@ -65,7 +65,7 @@ class Misc:
             cats = {}
             for cmd in cmds:
                 if not hasattr(cmd, 'category'):
-                    cmd.category = 'Misc'
+                    continue
                 if cmd.category not in cats:
                     cats[cmd.category] = []
                 cats[cmd.category].append(cmd)
@@ -85,7 +85,7 @@ class Misc:
             cats = {}
             for cmd in cmds:
                 if not hasattr(cmd, 'category'):
-                    cmd.category = 'Misc'
+                    continue
                 if cmd.category not in cats:
                     cats[cmd.category] = []
                 cats[cmd.category].append(cmd)
