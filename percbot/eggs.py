@@ -44,7 +44,7 @@ class Eggs:
         await ctx.send(give_mess)
 
     '''
-    '''
+
     @commands.command()
     async def individualistically(self, ctx):
         print(type(ctx.channel))
@@ -60,7 +60,7 @@ class Eggs:
             if not (member and role): return
             await member.add_roles(role)
             await ctx.send(':japan:')
-    '''
+
 
     async def on_message(self, message):
         content = message.content.lower()
